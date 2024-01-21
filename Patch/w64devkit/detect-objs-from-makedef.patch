@@ -1,0 +1,49 @@
+diff --git a/compat/windows/makedef b/compat/windows/makedef
+index add8222d13..dfd33c88f5 100755
+--- a/compat/windows/makedef
++++ b/compat/windows/makedef
+@@ -19,10 +19,10 @@ mktemp() {
+     echo "${2%%XXX*}.${HOSTNAME}.${UID}.$$"
+ }
+ 
+-if [ $# -lt 2 ]; then
+-    echo "Usage: makedef <version_script> <objects>" >&2
+-    exit 0
+-fi
++# if [ $# -lt 2 ]; then
++    # echo "Usage: makedef <version_script> <objects>" >&2
++    # exit 0
++# fi
+ 
+ vscript=$1
+ shift
+@@ -32,7 +32,16 @@ if [ ! -f "$vscript" ]; then
+     exit 1
+ fi
+ 
+-for object in "$@"; do
++libfolder=${vscript%/*}
++
++ARRAY=()
++# for entry in "libswresample"/*.o
++for entry in "${libfolder}"/*.o
++do
++  ARRAY+=("$entry")
++done
++
++for object in "${ARRAY[@]}"; do
+     if [ ! -f "$object" ]; then
+         echo "Object does not exist: ${object}" >&2
+         exit 1
+@@ -46,9 +55,9 @@ libname=$(mktemp -u "library").lib
+ trap 'rm -f -- $libname' EXIT
+ 
+ if [ -n "$AR" ]; then
+-    $AR rcs ${libname} $@ >/dev/null
++    $AR rcs ${libname} ${ARRAY[@]} >/dev/null
+ else
+-    lib.exe -out:${libname} $@ >/dev/null
++    lib.exe -out:${libname} ${ARRAY[@]} >/dev/null
+ fi
+ if [ $? != 0 ]; then
+     echo "Could not create temporary library." >&2

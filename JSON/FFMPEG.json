@@ -1,0 +1,111 @@
+{
+    "Download":
+    {
+        "Git":
+        {
+            "list":[
+                {
+                    "Input":
+                    {
+                        "URL": "https://github.com/FFmpeg/FFmpeg.git",
+                        "Branch": "master",
+                        "Commit": "latest"
+                    },
+                    "Action": "clone",
+                    "Output": "{BUILD}/Ffmpeg"
+                }
+            ]
+        },
+        "Compress":
+        {
+            "list":[
+                {
+                    "Input":
+                    {
+                        "URL": "https://github.com/skeeto/w64devkit/releases/download/v1.19.0/w64devkit-1.19.0.zip"
+                    },
+                    "Output": "{BUILD}/compiler"
+                },
+                {
+                    "Input":
+                    {
+                        "URL": "https://github.com/libsdl-org/SDL/releases/download/release-2.28.5/SDL2-devel-2.28.5-VC.zip"
+                    },
+                    "Output": "{BUILD}/SDL2"
+                }
+            ]
+        }
+    },
+    "Patch":
+    {
+        "Files":
+        {
+            "list":[
+                {
+                    "Input": "{PATCH}/w64devkit",
+                    "Action":
+                    [
+                        "use-gcc-directly-instead-of-ld.patch",
+                        "detect-objs-from-makedef.patch",
+                        "remove-OBJS-from-SLIB_CREATE_DEF_CMD.patch",
+                        "disable-sdl2-checking.patch"
+                    ],
+                    "Output": "{BUILD}/Ffmpeg"
+                }
+            ]
+        }
+    },
+    "Configure":
+    {
+        "Options":
+        {
+            "list":[
+                {
+                    "Input": "{BUILD}/Ffmpeg",
+                    "Action":
+                    [
+                        "export PATH=$PATH:{BUILD}/compiler/w64devkit/bin",
+                        "sh ./configure --extra-ldflags=-L{BUILD}/SDL2/SDL2-2.28.5/lib/x64 --extra-cflags=-I{BUILD}/SDL2/SDL2-2.28.5/include --prefix={PACKAGE} --disable-static --enable-shared --disable-debug --target-os=mingw64 --disable-w32threads --disable-hwaccels --disable-x86asm --disable-asm",
+                        "sed -i 's/EXTRALIBS-ffplay=-lshell32/EXTRALIBS-ffplay=-lsdl2 -lshell32/g' {BUILD}/Ffmpeg/ffbuild/config.mak",
+                        "sed -i 's/EXTRALIBS-avdevice=-lpsapi/EXTRALIBS-avdevice=-lsdl2 -lpsapi/g' {BUILD}/Ffmpeg/ffbuild/config.mak"
+                    ],
+                    "Output": ""
+                }
+            ]
+        }
+    },
+    "Build":
+    {
+        "Options":
+        {
+            "list":[
+                {
+                    "Input": "{BUILD}/Ffmpeg",
+                    "Action":
+                    [
+                        "export PATH=$PATH:{BUILD}/compiler/w64devkit/bin",
+                        "make",
+                        "make install"
+                    ],
+                    "Output": ""
+                }
+            ]
+        }
+    },
+    "Package":
+    {
+        "Options":
+        {
+            "list":[
+                {
+                    "Input": "{PACKAGE}",
+                    "Action":
+                    [
+                        "cp {BUILD}/SDL2/SDL2-2.28.5/lib/x64/SDL2.dll {PACKAGE}/bin"
+                    ],
+                    "Output": ""
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,41 @@
+diff --git a/configure b/configure
+index 7d2ee66000..76a5dcfb7e 100755
+--- a/configure
++++ b/configure
+@@ -6961,21 +6961,21 @@ if enabled gcrypt; then
+     fi
+ fi
+ 
+-if enabled sdl2; then
+-    SDL2_CONFIG="${cross_prefix}sdl2-config"
+-    test_pkg_config sdl2 "sdl2 >= 2.0.1 sdl2 < 3.0.0" SDL_events.h SDL_PollEvent
+-    if disabled sdl2 && "${SDL2_CONFIG}" --version > /dev/null 2>&1; then
+-        sdl2_cflags=$("${SDL2_CONFIG}" --cflags)
+-        sdl2_extralibs=$("${SDL2_CONFIG}" --libs)
+-        test_cpp_condition SDL.h "(SDL_MAJOR_VERSION<<16 | SDL_MINOR_VERSION<<8 | SDL_PATCHLEVEL) >= 0x020001" $sdl2_cflags &&
+-        test_cpp_condition SDL.h "(SDL_MAJOR_VERSION<<16 | SDL_MINOR_VERSION<<8 | SDL_PATCHLEVEL) < 0x030000" $sdl2_cflags &&
+-        check_func_headers SDL_events.h SDL_PollEvent $sdl2_extralibs $sdl2_cflags &&
+-            enable sdl2
+-    fi
+-    if test $target_os = "mingw32"; then
+-        sdl2_extralibs=$(filter_out '-mwindows' $sdl2_extralibs)
+-    fi
+-fi
++# if enabled sdl2; then
++    # SDL2_CONFIG="${cross_prefix}sdl2-config"
++    # test_pkg_config sdl2 "sdl2 >= 2.0.1 sdl2 < 3.0.0" SDL_events.h SDL_PollEvent
++    # if disabled sdl2 && "${SDL2_CONFIG}" --version > /dev/null 2>&1; then
++        # sdl2_cflags=$("${SDL2_CONFIG}" --cflags)
++        # sdl2_extralibs=$("${SDL2_CONFIG}" --libs)
++        # test_cpp_condition SDL.h "(SDL_MAJOR_VERSION<<16 | SDL_MINOR_VERSION<<8 | SDL_PATCHLEVEL) >= 0x020001" $sdl2_cflags &&
++        # test_cpp_condition SDL.h "(SDL_MAJOR_VERSION<<16 | SDL_MINOR_VERSION<<8 | SDL_PATCHLEVEL) < 0x030000" $sdl2_cflags &&
++        # check_func_headers SDL_events.h SDL_PollEvent $sdl2_extralibs $sdl2_cflags &&
++            # enable sdl2
++    # fi
++    # if test $target_os = "mingw32"; then
++        # sdl2_extralibs=$(filter_out '-mwindows' $sdl2_extralibs)
++    # fi
++# fi
+ 
+ if enabled decklink; then
+     case $target_os in
