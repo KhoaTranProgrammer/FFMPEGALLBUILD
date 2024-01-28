@@ -16,6 +16,7 @@
 
 echo "Use %_args2%"
 
+@echo off
 @if "%_args1%"=="--install" (
     echo "Please waiting for installation ..."
     curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
@@ -31,9 +32,11 @@ echo "Use %_args2%"
     echo "Please waiting for conda activation ..."
     CALL %UserProfile%\Miniconda3\Scripts\activate.bat %UserProfile%\Miniconda3
     for /f "tokens=1,2 delims==" %%a in (%_args2%) do (
-        ECHO.%%a | FIND /I "name:" > Nul && ( for /f "tokens=1,2 delims= " %%i in ("%%a") do set name=%%j)
+        @echo off
+        Echo.%%a | findstr /C:"name:" > Nul && ( for /f "tokens=1,2 delims= " %%i in ("%%a") do (
+            conda activate %%j
+        ))
     )
-    conda activate %name%
 ) else (
     echo "Do not support %_args1%"
 )
