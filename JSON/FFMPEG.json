@@ -65,7 +65,7 @@
                     "Action":
                     [
                         "export PATH=$PATH:{BUILD}/compiler/w64devkit/bin",
-                        "sh ./configure --extra-ldflags=-L{BUILD}/SDL2/SDL2-2.28.5/lib/x64 --extra-cflags=-I{BUILD}/SDL2/SDL2-2.28.5/include --prefix={PACKAGE} --disable-static --enable-shared --disable-debug --target-os=mingw64 --disable-w32threads --disable-hwaccels --disable-x86asm --disable-asm",
+                        "sh ./configure --extra-ldflags=-L{BUILD}/SDL2/SDL2-2.28.5/lib/x64 --extra-cflags=-I{BUILD}/SDL2/SDL2-2.28.5/include --prefix={PACKAGE}/w64devkit --disable-static --enable-shared --disable-debug --target-os=mingw64 --disable-w32threads --disable-hwaccels --disable-x86asm --disable-asm",
                         "sed -i 's/EXTRALIBS-ffplay=-lshell32/EXTRALIBS-ffplay=-lsdl2 -lshell32/g' {BUILD}/Ffmpeg/ffbuild/config.mak",
                         "sed -i 's/EXTRALIBS-avdevice=-lpsapi/EXTRALIBS-avdevice=-lsdl2 -lpsapi/g' {BUILD}/Ffmpeg/ffbuild/config.mak"
                     ],
@@ -101,7 +101,8 @@
                     "Input": "{PACKAGE}",
                     "Action":
                     [
-                        "cp {BUILD}/SDL2/SDL2-2.28.5/lib/x64/SDL2.dll {PACKAGE}/bin"
+                        "cp {BUILD}/SDL2/SDL2-2.28.5/lib/x64/SDL2.dll {PACKAGE}/w64devkit/bin",
+                        "7z a -tzip ffmpeg-Windows-w64devkit.zip w64devkit"
                     ],
                     "Output": ""
                 }
