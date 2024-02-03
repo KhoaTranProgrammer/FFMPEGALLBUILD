@@ -65,7 +65,7 @@
                     "Action":
                     [
                         "export PATH=$PATH:{BUILD}/compiler/w64devkit/bin",
-                        "sh ./configure --extra-ldflags=-L{BUILD}/SDL2/SDL2-2.28.5/lib/x64 --extra-cflags=-I{BUILD}/SDL2/SDL2-2.28.5/include --prefix={PACKAGE}/w64devkit --disable-static --enable-shared --disable-debug --target-os=mingw64 --disable-w32threads --disable-hwaccels --disable-x86asm --disable-asm",
+                        "sh ./configure --extra-ldflags=-L{BUILD}/SDL2/SDL2-2.28.5/lib/x64 --extra-cflags=-I{BUILD}/SDL2/SDL2-2.28.5/include --prefix={PACKAGE} --disable-static --enable-shared --disable-debug --target-os=mingw64 --disable-w32threads --disable-hwaccels --disable-x86asm --disable-asm",
                         "sed -i 's/EXTRALIBS-ffplay=-lshell32/EXTRALIBS-ffplay=-lsdl2 -lshell32/g' {BUILD}/Ffmpeg/ffbuild/config.mak",
                         "sed -i 's/EXTRALIBS-avdevice=-lpsapi/EXTRALIBS-avdevice=-lsdl2 -lpsapi/g' {BUILD}/Ffmpeg/ffbuild/config.mak"
                     ],
@@ -83,6 +83,7 @@
                     "Input": "{BUILD}/Ffmpeg",
                     "Action":
                     [
+                        "rm -rf {PACKAGE}",
                         "export PATH=$PATH:{BUILD}/compiler/w64devkit/bin",
                         "make",
                         "make install"
@@ -101,17 +102,18 @@
                     "Input": "{PACKAGE}",
                     "Action":
                     [
-                        "cp {BUILD}/SDL2/SDL2-2.28.5/lib/x64/SDL2.dll {PACKAGE}/w64devkit/bin",
-                        "7z a -tzip ffmpeg-Windows-w64devkit.zip w64devkit",
+                        "rm *.zip && rm *.md",
+                        "cp {BUILD}/SDL2/SDL2-2.28.5/lib/x64/SDL2.dll {PACKAGE}/bin",
+                        "7z a -tzip ffmpeg-Windows-w64devkit.zip *",
                         "echo|set /p=\"### FFMPEG SHA1: \" > {PACKAGE}/ffmpeg-Windows-w64devkit.md",
                         "cd {BUILD}/Ffmpeg && git log -n 1 --pretty=format:\"%H\" >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
                         "echo: >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
                         "echo ### FFPROBE: >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
-                        "{PACKAGE}/w64devkit/bin/ffprobe.exe -show_program_version >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "{PACKAGE}/bin/ffprobe.exe -show_program_version >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
                         "echo ### FFPLAY: >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
-                        "{PACKAGE}/w64devkit/bin/ffplay.exe -version >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "{PACKAGE}/bin/ffplay.exe -version >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
                         "echo ### FFMPEG: >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
-                        "{PACKAGE}/w64devkit/bin/ffmpeg.exe -version >> {PACKAGE}/ffmpeg-Windows-w64devkit.md"
+                        "{PACKAGE}/bin/ffmpeg.exe -version >> {PACKAGE}/ffmpeg-Windows-w64devkit.md"
                     ],
                     "Output": ""
                 }
