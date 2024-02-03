@@ -26,3 +26,7 @@ This repository targets to build ffmpeg library from source code. It provides pr
 2. Activate environment run: Setup\Windows\Setup.bat --activate Setup\Windows\default.yml
 3. Run: python .\Scripts\ControlProcess.py -ji .\JSON\FFMPEG.json -st Download-Patch-Configure-Build-Package
 4. If build process is successful, output package will be created at Package\ffmpeg-Windows-w64devkit.zip
+### C. Check binary output
+In order to ensure the build process is completely.
+1. Playback media: Package\bin\ffplay.exe Data\calahan.m4v
+2. In order to understand more about ffmpeg, please refer to Package\share\doc\ffmpeg\general.html
