@@ -102,7 +102,16 @@
                     "Action":
                     [
                         "cp {BUILD}/SDL2/SDL2-2.28.5/lib/x64/SDL2.dll {PACKAGE}/w64devkit/bin",
-                        "7z a -tzip ffmpeg-Windows-w64devkit.zip w64devkit"
+                        "7z a -tzip ffmpeg-Windows-w64devkit.zip w64devkit",
+                        "echo|set /p=\"### FFMPEG SHA1: \" > {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "cd {BUILD}/Ffmpeg && git log -n 1 --pretty=format:\"%H\" >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "echo: >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "echo ### FFPROBE: >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "{PACKAGE}/w64devkit/bin/ffprobe.exe -show_program_version >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "echo ### FFPLAY: >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "{PACKAGE}/w64devkit/bin/ffplay.exe -version >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "echo ### FFMPEG: >> {PACKAGE}/ffmpeg-Windows-w64devkit.md",
+                        "{PACKAGE}/w64devkit/bin/ffmpeg.exe -version >> {PACKAGE}/ffmpeg-Windows-w64devkit.md"
                     ],
                     "Output": ""
                 }
