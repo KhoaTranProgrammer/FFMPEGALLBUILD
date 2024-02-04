@@ -15,28 +15,32 @@
 )
 
 echo "Use %_args2%"
+set /p a=< %_args2%
+echo %a%
+set "_miniconda_dir=C:\Workspace\Miniconda3"
 
 @echo off
 @if "%_args1%"=="--install" (
+    if not exist %_miniconda_dir% mkdir %_miniconda_dir%
     echo "Please waiting for installation ..."
     curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
-    start /wait "" Miniconda3-latest-Windows-x86_64.exe /InstallationType=JustMe /RegisterPython=0 /S /D=%UserProfile%\Miniconda3
+    start /wait "" Miniconda3-latest-Windows-x86_64.exe /InstallationType=JustMe /RegisterPython=0 /S /D=%_miniconda_dir%
     del Miniconda3-latest-Windows-x86_64.exe
-    CALL %UserProfile%\Miniconda3\Scripts\activate.bat %UserProfile%\Miniconda3
+    echo "Miniconda is installed in location %_miniconda_dir%"
+    CALL %_miniconda_dir%\Scripts\activate.bat %_miniconda_dir%
     conda env create --file %_args2%
 ) else if "%_args1%"=="--update" (
     echo "Please waiting for updating ..."
-    CALL %UserProfile%\Miniconda3\Scripts\activate.bat %UserProfile%\Miniconda3
+    CALL %_miniconda_dir%\Scripts\activate.bat %_miniconda_dir%
+    echo "Miniconda is updated in location %_miniconda_dir%"
     conda env update --file %_args2% --prune
 ) else if "%_args1%"=="--activate" (
     echo "Please waiting for conda activation ..."
-    CALL %UserProfile%\Miniconda3\Scripts\activate.bat %UserProfile%\Miniconda3
-    for /f "tokens=1,2 delims==" %%a in (%_args2%) do (
-        @echo off
-        Echo.%%a | findstr /C:"name:" > Nul && ( for /f "tokens=1,2 delims= " %%i in ("%%a") do (
-            conda activate %%j
-        ))
-    )
+    CALL %_miniconda_dir%\Scripts\activate.bat %_miniconda_dir%
+    echo "Miniconda is activated in location %_miniconda_dir%"
+    for /f "tokens=1,2 delims= " %%i in ("%a%") do ( conda activate %%j )
 ) else (
     echo "Do not support %_args1%"
 )
+
+echo "The setup is complete"
