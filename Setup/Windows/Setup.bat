@@ -21,7 +21,8 @@ set "_miniconda_dir=C:\Workspace\Miniconda3"
 
 @echo off
 @if "%_args1%"=="--install" (
-    if not exist %_miniconda_dir% mkdir %_miniconda_dir%
+    if exist %_miniconda_dir% rmdir /s /q %_miniconda_dir%
+    mkdir %_miniconda_dir%
     echo "Please waiting for installation ..."
     curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
     start /wait "" Miniconda3-latest-Windows-x86_64.exe /InstallationType=JustMe /RegisterPython=0 /S /D=%_miniconda_dir%
