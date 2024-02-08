@@ -17,7 +17,7 @@
 echo "Use %_args2%"
 set /p a=< %_args2%
 echo %a%
-set "_miniconda_dir=C:\Workspace\Miniconda3"
+set "_miniconda_dir=%cd%\Miniconda3"
 
 @echo off
 @if "%_args1%"=="--install" (
