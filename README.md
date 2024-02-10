@@ -19,8 +19,9 @@ This repository targets to build ffmpeg library from source code. It provides pr
 ## 4.1 Windows
 ### A. Setting up environment (For first time only)
 1. Clone FFMPEGALLBUILD: git clone https://github.com/KhoaTranProgrammer/FFMPEGALLBUILD.git or download zip package: https://github.com/KhoaTranProgrammer/FFMPEGALLBUILD/archive/refs/heads/master.zip
-2. Open cmd from FFMPEGALLBUILD repo location
-3. Run: Setup\Windows\Setup.bat --install Setup\Windows\default.yml
+2. Checkout submodule: git submodule update --init --recursive
+3. Open cmd from FFMPEGALLBUILD repo location
+4. Run: Setup\Windows\Setup.bat --install Setup\Windows\default.yml
 ### B. Build process
 1. Open cmd from FFMPEGALLBUILD repo location
 2. Activate environment run: Setup\Windows\Setup.bat --activate Setup\Windows\default.yml
