@@ -1,0 +1,53 @@
+{
+    "Download":
+    {
+        "Git":
+        {
+            "list":[
+                {
+                    "Input":
+                    {
+                        "URL": "https://github.com/FFmpeg/FFmpeg.git",
+                        "Branch": "master",
+                        "Commit": "latest"
+                    },
+                    "Action": "clone",
+                    "Output": "{BUILD}/Ffmpeg"
+                }
+            ]
+        }
+    },
+    "Configure":
+    {
+        "Options":
+        {
+            "list":[
+                {
+                    "Input": "{BUILD}/Ffmpeg",
+                    "Action":
+                    [
+                        "./configure --prefix={PACKAGE} --disable-static --enable-shared --disable-debug --disable-hwaccels --disable-x86asm --disable-asm"
+                    ],
+                    "Output": ""
+                }
+            ]
+        }
+    },
+    "Build":
+    {
+        "Options":
+        {
+            "list":[
+                {
+                    "Input": "{BUILD}/Ffmpeg",
+                    "Action":
+                    [
+                        "make",
+                        "make install"
+                    ],
+                    "Output": ""
+                }
+            ]
+        }
+    }
+}
