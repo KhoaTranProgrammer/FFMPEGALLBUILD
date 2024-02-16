@@ -49,5 +49,36 @@
                 }
             ]
         }
+    },
+    "Package":
+    {
+        "Options":
+        {
+            "list":[
+                {
+                    "Input": "{PACKAGE}",
+                    "Action":
+                    [
+                        "rm *.tar.gz && rm *.md",
+                        "mkdir Data && cp -rf {PACKAGE}/../Data/calahan.m4v Data",
+                        "tar -czf ffmpeg-Ubuntu-gcc.tar.gz *",
+                        "echo -n \"### FFMPEG SHA1: \" > {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "cd {BUILD}/Ffmpeg && git log -n 1 --pretty=format:\"%H\" >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "echo \"\n## RUN SAMPLE PROGRAM\" >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "echo \"- Download and extract package: ffmpeg-Ubuntu-gcc.tar.gz\" >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "echo \"- Change working directory to bin folder\" >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "echo '- Export lib: export LD_LIBRARY_PATH =$LD_LIBRARY_PATH:${PWD}/../lib' >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "echo \"- Run command: ./ffplay ../Data/calahan.m4v\" >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "echo '### FFPROBE:' >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "{PACKAGE}/bin/ffprobe -show_program_version >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "echo '### FFPLAY:' >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "{PACKAGE}/bin/ffplay -version >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "echo '### FFMPEG:' >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
+                        "{PACKAGE}/bin/ffmpeg -version >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md"
+                    ],
+                    "Output": ""
+                }
+            ]
+        }
     }
 }
