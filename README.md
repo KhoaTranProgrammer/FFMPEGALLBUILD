@@ -18,10 +18,12 @@ This repository targets to build ffmpeg library from source code. It provides pr
 # 4. How To Build?
 ## 4.1 Windows
 ### A. Setting up environment (For first time only)
-1. Clone FFMPEGALLBUILD: git clone https://github.com/KhoaTranProgrammer/FFMPEGALLBUILD.git or download zip package: https://github.com/KhoaTranProgrammer/FFMPEGALLBUILD/archive/refs/heads/master.zip
-2. Checkout submodule: git submodule update --init --recursive
-3. Open cmd from FFMPEGALLBUILD repo location
-4. Run: Setup\Windows\Setup.bat --install Setup\Windows\default.yml
+1. Open Git Bash For Windows(Install git tool if is not available https://git-scm.com/)
+2. Clone FFMPEGALLBUILD: git clone https://github.com/KhoaTranProgrammer/FFMPEGALLBUILD.git or download zip package: https://github.com/KhoaTranProgrammer/FFMPEGALLBUILD/archive/refs/heads/master.zip
+3. Change workind directory to FFMPEGALLBUILD: cd FFMPEGALLBUILD
+4. Checkout submodule: git submodule update --init --recursive
+5. Open cmd from FFMPEGALLBUILD repo location
+6. Run: Setup\Windows\Setup.bat --install Setup\Windows\default.yml
 ### B. Build process
 1. Open cmd from FFMPEGALLBUILD repo location
 2. Activate environment run: Setup\Windows\Setup.bat --activate Setup\Windows\default.yml
@@ -31,3 +33,19 @@ This repository targets to build ffmpeg library from source code. It provides pr
 In order to ensure the build process is completely.
 1. Playback media: Package\bin\ffplay.exe Data\calahan.m4v
 2. In order to understand more about ffmpeg, please refer to Package\share\doc\ffmpeg\general.html
+## 4.2 Ubuntu
+### A. Setting up environment (For first time only)
+1. Open terminal and Install git tool if is not available: sudo apt install git
+2. Clone FFMPEGALLBUILD: git clone https://github.com/KhoaTranProgrammer/FFMPEGALLBUILD.git or download zip package: https://github.com/KhoaTranProgrammer/FFMPEGALLBUILD/archive/refs/heads/master.zip
+3. Change workind directory to FFMPEGALLBUILD: cd FFMPEGALLBUILD
+4. Checkout submodule: git submodule update --init --recursive
+5. Run: Setup/Ubuntu/Setup.sh --install Setup/Ubuntu/default.yml
+### B. Build process
+1. Open terminal from FFMPEGALLBUILD repo location
+2. Activate environment run: source Setup/Ubuntu/Setup.sh --activate Setup/Ubuntu/default.yml
+3. Run: python Scripts/ControlProcess.py -ji JSON/FFMPEG_Ubuntu.json -st Download-Configure-Build-Package
+4. If build process is successful, output package will be created at Package/ffmpeg-Ubuntu-gcc.tar.gz
+### C. Check binary output
+In order to ensure the build process is completely.
+1. Playback media: Package/bin/ffplay Data/calahan.m4v
+2. In order to understand more about ffmpeg, please refer to Package/share/man
