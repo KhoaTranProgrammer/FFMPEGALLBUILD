@@ -70,5 +70,14 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                script {
+                    if (params.OS_COMPILER == 'Windows_w64devkit') {
+                        bat 'Setup\\Windows\\Setup.bat --activate Setup\\Windows\\default.yml && python .\\Scripts\\ControlProcess.py -ji .\\JSON\\FFMPEG_w64devkit_Deploy.json -st Deploy'
+                    }
+                }
+            }
+        }
     }
 }
