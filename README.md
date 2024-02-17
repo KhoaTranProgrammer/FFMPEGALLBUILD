@@ -5,6 +5,7 @@ This repository targets to build ffmpeg library from source code. It provides pr
 | OS | Compiler |
 | :---:   | :---: |
 | Windows | gcc 13.1.0   |
+| Ubuntu | gcc 13.2.0   |
 
 # 3. Tools
 | Tools | Information |
@@ -12,7 +13,8 @@ This repository targets to build ffmpeg library from source code. It provides pr
 | Ffmpeg | Link: https://github.com/FFmpeg/FFmpeg.git |
 | w64devkit-1.19.0.zip (gcc 13.1.0) | Link: https://github.com/skeeto/w64devkit/releases/download/v1.19.0/w64devkit-1.19.0.zip |
 | SDL2 | Link: https://github.com/libsdl-org/SDL/releases/download/release-2.28.5/SDL2-devel-2.28.5-VC.zip |
-| Miniconda | Link: https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe |
+| Miniconda (Windows) | Link: https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe |
+| Miniconda (Ubuntu) | Link: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh |
 | Miniconda python and toolset | Define in Setup/{OS}/*.yml |
 
 # 4. How To Build?
