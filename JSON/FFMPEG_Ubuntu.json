@@ -60,7 +60,7 @@
                     "Action":
                     [
                         "rm *.tar.gz && rm *.md",
-                        "mkdir Data && cp -rf {PACKAGE}/../Data/calahan.m4v Data",
+                        "rm -rf Data && mkdir Data && cp -rf {PACKAGE}/../Data/calahan.m4v Data",
                         "tar -czf ffmpeg-Ubuntu-gcc.tar.gz *",
                         "echo -n \"### FFMPEG SHA1: \" > {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
                         "cd {BUILD}/Ffmpeg && git log -n 1 --pretty=format:\"%H\" >> {PACKAGE}/ffmpeg-Ubuntu-gcc.md",
