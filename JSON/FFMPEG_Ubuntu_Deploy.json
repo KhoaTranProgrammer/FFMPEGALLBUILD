@@ -1,0 +1,20 @@
+{
+    "Deploy":
+    {
+        "Options":
+        {
+            "list":[
+                {
+                    "Input": "{PACKAGE}",
+                    "Action":
+                    [
+                        "gh release create v{YYYYMMDD} --generate-notes",
+                        "gh release upload v{YYYYMMDD} {PACKAGE}/ffmpeg-Ubuntu-gcc.tar.gz",
+                        "gh release upload v{YYYYMMDD} {PACKAGE}/ffmpeg-Ubuntu-gcc.md"
+                    ],
+                    "Output": ""
+                }
+            ]
+        }
+    }
+}
