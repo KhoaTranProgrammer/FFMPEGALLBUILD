@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # Usage
 # In order to install new conda environment uses command: Setup.sh --install env.yml
 # In order to install update conda enviroment uses command: Setup.sh --update env.yml
