@@ -94,6 +94,9 @@ pipeline {
                         if (params.OS_COMPILER == 'Windows_w64devkit') {
                             currentBuild.description = readFile('Package/ffmpeg-Windows-w64devkit.md')
                         }
+                        if (params.OS_COMPILER == 'Linux_UbuntuGcc') {
+                            currentBuild.description = readFile('Package/ffmpeg-Ubuntu-gcc.md')
+                        }
                     }
                 }
             }
